@@ -2,6 +2,7 @@ package com.example.bigevent.interceptors;
 
 import com.example.bigevent.pojo.Result;
 import com.example.bigevent.utils.JwtUtil;
+import com.example.bigevent.utils.ThreadLocalUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
@@ -23,10 +24,17 @@ public class LoginInterceptor implements HandlerInterceptor {
         try {
             Map<String, Object> claims = JwtUtil.parseToken(token);
             //放行
+            ThreadLocalUtil.set(claims);
             return true;
         } catch (Exception e) {
             response.setStatus(401);
             return false;
         }
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        //清除ThreadLocal中的数据
+        ThreadLocalUtil.remove();
     }
 }
