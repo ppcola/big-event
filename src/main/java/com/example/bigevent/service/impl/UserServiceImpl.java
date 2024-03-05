@@ -6,6 +6,8 @@ import com.example.bigevent.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 /**
  * @author xi
  * @create 2024/3/3 18:03
@@ -27,5 +29,11 @@ public class UserServiceImpl implements UserService {
 
         //添加
         userMapper.add(username,password);
+    }
+
+    @Override
+    public void update(User user) {
+        user.setUpdateTime(LocalDateTime.now());
+        userMapper.update(user);
     }
 }
