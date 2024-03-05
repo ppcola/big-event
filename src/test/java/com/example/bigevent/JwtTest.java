@@ -16,6 +16,8 @@ import java.util.Map;
  * @create 2024/3/4 21:13
  */
 public class JwtTest {
+
+    //TODO 拦截器统一验证
     @Test
     public void testGen() {
         Map<String,Object> claims = new HashMap<>();
