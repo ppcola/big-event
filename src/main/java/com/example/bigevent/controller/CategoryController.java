@@ -35,4 +35,10 @@ public class CategoryController {
         Category category =categoryService.findById(id);
         return Result.success(category);
     }
+
+    @PutMapping
+    public Result update(@RequestBody Category category){
+        categoryService.update(category);
+        return Result.success();
+    }
 }
