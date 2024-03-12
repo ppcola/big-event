@@ -1,6 +1,7 @@
 package com.example.bigevent.controller;
 
 import com.example.bigevent.pojo.Article;
+import com.example.bigevent.pojo.PageBean;
 import com.example.bigevent.pojo.Result;
 import com.example.bigevent.service.ArticleService;
 import com.example.bigevent.utils.JwtUtil;
@@ -32,5 +33,16 @@ public class ArticleController {
         articleService.add(article);
         return Result.success();
 
+    }
+
+    @GetMapping
+    public Result<PageBean<Article>> list(
+            Integer pageNum,
+            Integer pageSize,
+            @RequestParam(required = false) Integer categoryId,
+            @RequestParam(required = false)String  state
+    ){
+        PageBean<Article> pb= articleService.list(pageNum,pageSize,categoryId,state);
+        return Result.success(pb);
     }
 }

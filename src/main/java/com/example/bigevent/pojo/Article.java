@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
  * @create 2024/3/8 12:44
  */
 @Data
+//TODO 参数校验
 public class Article {
     private Integer id; //主键id
     private String title;//文章标题
