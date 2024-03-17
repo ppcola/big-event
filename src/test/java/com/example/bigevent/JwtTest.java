@@ -37,8 +37,8 @@ public class JwtTest {
         String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MDk2MDcwMjEsInVzZXIiOnsiaWQiOjEsInVzZXJuYW1lIjoi5byg5LiJIn19.yAvdY8s6JBEV5SXXGddZqWF3DEfUecknllazg7pfUyY";
         JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256("itheima")).build();
 
-        DecodedJWT decodedJWT = jwtVerifier.verify(token);//验证token生成解析后的JWT对象
-        Map<String, Claim> claims = decodedJWT.getClaims();
-        System.out.println(claims.get("user"));
+//        DecodedJWT decodedJWT = jwtVerifier.verify(token);//验证token生成解析后的JWT对象
+//        Map<String, Claim> claims = decodedJWT.getClaims();
+//        System.out.println(claims.get("user"));
     }
 }
