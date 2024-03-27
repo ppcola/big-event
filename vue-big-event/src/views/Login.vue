@@ -52,12 +52,16 @@ const register = async ()=>{
 //登录,复用注册数据模型
 //表单数据校验
 //登录函数
+import {useTokenStore} from "@/stores/token.js"
 import {useRouter} from 'vue-router'
 const router = useRouter()
+const tokenStore=useTokenStore();
 const login =async () =>{
   //调用接口,完成登录
   let result=await userLoginService(registerData.value);
   ElMessage.success(result.msg?result.msg:'登录成功')
+  //把得到的token存储到pinia中
+  tokenStore.setToken(result.data)
   // 跳转到首页 路由完成跳转
   router.push('/')
 }
