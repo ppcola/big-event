@@ -9,3 +9,13 @@ export const articleCategoryListService = ()=>{
     // return request.get('/category',{headers:{'Authorization':tokenStore.token}})
     return request.get('/category')
 }
+
+//文章分类新增
+export const articleCategoryAddService =(categoryData)=>{
+    return request.post('/category',categoryData)
+}
+
+//文章分类修改
+export const articleCategoryUpdateService =(categoryData)=>{
+    return  request.put('/category',categoryData);
+}
