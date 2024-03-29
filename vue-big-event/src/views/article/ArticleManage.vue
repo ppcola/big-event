@@ -86,7 +86,7 @@ const onCurrentChange = (num) => {
 }
 
 //回显文章分类
-import {articleCategoryListService,articleListService} from '@/api/article.js'
+import {articleCategoryListService,articleListService,articleAddService} from '@/api/article.js'
 const articleCategoryList=async ()=>{
   let result=await articleCategoryListService();
   categorys.value=result.data;
@@ -123,6 +123,7 @@ import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css'
 
 import {Plus} from '@element-plus/icons-vue'
+import {ElMessage} from "element-plus";
 //控制抽屉是否显示
 const visibleDrawer = ref(false)
 //添加表单数据模型
@@ -133,6 +134,22 @@ const articleModel = ref({
   content:'',
   state:''
 })
+
+//添加文章
+
+const addArticle=async (clickState)=>{
+  //把发布状态赋值给数据模型
+  articleModel.value.state=clickState;
+
+  //调用接口
+  let result=await articleAddService(articleModel.value);
+  ElMessage.success(result.msg?result.msg : '添加成功');
+  //让抽屉销售
+  visibleDrawer.value=false;
+  //刷新当前列表
+  articleList()
+}
+
 </script>
 <template>
   <el-card class="page-container">
@@ -223,8 +240,8 @@ const articleModel = ref({
           </div>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary">发布</el-button>
-          <el-button type="info">草稿</el-button>
+          <el-button type="primary" @click="addArticle('已发布')">发布</el-button>
+          <el-button type="info" @click="addArticle(草稿)">草稿</el-button>
         </el-form-item>
       </el-form>
     </el-drawer>
