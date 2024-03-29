@@ -10,6 +10,18 @@ import {
   CaretBottom
 } from '@element-plus/icons-vue'
 import avatar from '@/assets/default.png'
+import {userInfoService} from "@/api/user.js"
+import useUserInfoStore from '@/stores/userInfo.js'
+
+const userInfoStore=useUserInfoStore();
+//调用函数,获取用户详细信息
+const getUserInfo=async ()=>{
+  //调用接口
+  const result=await userInfoService();
+  //数据存储到pinia中
+  userInfoStore.setInfo(result.data)
+}
+getUserInfo()
 </script>
 
 <template>
@@ -63,10 +75,10 @@ import avatar from '@/assets/default.png'
     <el-container>
       <!-- 头部区域 -->
       <el-header>
-        <div>黑马程序员：<strong>东哥</strong></div>
+        <div>当前用户：<strong>{{userInfoStore.info.nickname}}</strong></div>
         <el-dropdown placement="bottom-end">
                     <span class="el-dropdown__box">
-                        <el-avatar :src="avatar" />
+                        <el-avatar :src="userInfoStore.info.userPic?userInfoStore.info.userPic : avatar" />
                         <el-icon>
                             <CaretBottom />
                         </el-icon>
